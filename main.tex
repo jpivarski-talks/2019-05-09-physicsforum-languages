@@ -218,24 +218,55 @@
 %% \end{columns}
 %% \end{frame}
 
-\begin{frame}{Once exclusively Fortran, HEP today uses C++ and Python}
-\large
-\vspace{0.5 cm}
-\begin{center}
-Languages of non-fork repos for GitHub users who also fork {\tt cms-sw/cmssw}
-\end{center}
+%% \begin{frame}{Once exclusively Fortran, HEP today uses C++ and Python}
+%% \large
+%% \vspace{0.5 cm}
+%% \begin{center}
+%% Languages of non-fork repos for GitHub users who also fork {\tt cms-sw/cmssw}
+%% \end{center}
 
-\vspace{-0.25 cm}
-\begin{columns}
-\column{1.3\linewidth}
-\mbox{\hspace{-1 cm}\includegraphics[width=\linewidth]{physicist-github-languages-lin.pdf}}
-\end{columns}
+%% \vspace{-0.25 cm}
+%% \begin{columns}
+%% \column{1.3\linewidth}
+%% \mbox{\hspace{-1 cm}\includegraphics[width=\linewidth]{physicist-github-languages-lin.pdf}}
+%% \end{columns}
 
-\begin{center}
-\textcolor{gray}{(The Fortran $\to$ C++ transition happened 20 years ago.)}
-\end{center}
+%% \begin{center}
+%% \textcolor{gray}{(The Fortran $\to$ C++ transition happened 20 years ago.)}
+%% \end{center}
+%% \end{frame}
+
+%% \begin{frame}{Fortran, C++, and Python are general purpose machines}
+%% \Large
+%% \vspace{0.5 cm}
+%% \begin{columns}
+%% \column{1.1\linewidth}
+%% \begin{center}
+%% ``Did I fill that histogram before or after the \mintinline{python}{continue} statement?''
+%% \end{center}
+%% \end{columns}
+%% \end{frame}
+
+\begin{frame}[fragile]{}
+\small
+\begin{minted}{sql}
+SELECT CONCAT(first, " ", last) AS fullname, AVG(age)
+    FROM df WHERE age BETWEEN 18 AND 24
+    GROUP BY fullname
+\end{minted}
+
+\begin{minted}{python}
+>>> import pyspark.sql.functions as F
+
+>>> (df.withColumn("fullname",
+...         F.concat(F.col("first"), F.lit(" "), F.col("last")))
+...    .select("fullname", "age")
+...    .where(df.age.between(18, 24))
+...    .groupBy("fullname")
+...    .agg(F.mean("age")))
+\end{minted}
+
 \end{frame}
-
 
 
 
