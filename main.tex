@@ -218,6 +218,8 @@
 %% \end{columns}
 %% \end{frame}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%% languages are not fast or slow
+
 %% \begin{frame}{Once exclusively Fortran, HEP today uses C++ and Python}
 %% \large
 %% \vspace{0.5 cm}
@@ -251,19 +253,20 @@
 \small
 \begin{minted}{sql}
 SELECT CONCAT(first, " ", last) AS fullname, AVG(age)
-    FROM df WHERE age BETWEEN 18 AND 24
+    FROM my_table WHERE age BETWEEN 18 AND 24
     GROUP BY fullname
 \end{minted}
 
 \begin{minted}{python}
->>> import pyspark.sql.functions as F
+import pyspark.sql.functions as F
 
->>> (df.withColumn("fullname",
-...         F.concat(F.col("first"), F.lit(" "), F.col("last")))
-...    .select("fullname", "age")
-...    .where(df.age.between(18, 24))
-...    .groupBy("fullname")
-...    .agg(F.mean("age")))
+df = pyspark.read.load("my_table")
+(df.withColumn("fullname",
+        F.concat(F.col("first"), F.lit(" "), F.col("last")))
+   .select("fullname", "age")
+   .where(df.age.between(18, 24))
+   .groupBy("fullname")
+   .agg(F.mean("age")))
 \end{minted}
 
 \end{frame}
